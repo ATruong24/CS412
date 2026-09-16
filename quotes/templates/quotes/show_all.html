@@ -1,0 +1,17 @@
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+    <h2>All Images</h2>
+    <div>
+        {% for img in images %}
+            <img src="{{ img }}" alt="Jaylen Brown">
+        {% endfor %}
+    </div>
+
+    <h2>All Quotes</h2>
+    <ul style="list-style-type: none; padding: 0;">
+        {% for q in quotes %}
+            <li class="quote-text">"{{ q }}"</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
