@@ -1,19 +1,29 @@
+<!--
+File: restaurant/templates/restaurant/base.html
+Description: Base HTML template containing the main layout, navigation sidebar, and links to other part of website
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Carlos' Pizzaria</title>
+    <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="{% static 'styles.css' %}?v=2">
 </head>
 <body>
     <div class="page-layout">
         
+        <!-- Left Column: Sidebar Navigation -->
         <nav class="sidebar">
             <a href="{% url 'main' %}">Restaurant Info</a>
             <a href="{% url 'order' %}">Place an Order</a>
         </nav>
         
+        <!-- Right Column: Displays -->
         <main class="wrapper">
             {% block content %}
             {% endblock %}

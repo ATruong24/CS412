@@ -21,7 +21,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Added path to quotes application
     path('cs412/quotes/', include("quotes.urls")),
+    # Added path to restaurant application
     path('cs412/restaurant/', include("restaurant.urls"))
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

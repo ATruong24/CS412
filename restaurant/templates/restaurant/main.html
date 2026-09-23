@@ -1,7 +1,14 @@
+<!--
+Description: Main information page showing restaurant location, description and image
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
 {% extends 'restaurant/base.html' %}
 
 {% block content %}
     <div class="hero-section">
+        <!-- Centered picture and descriptive text-->>
         <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlqZ1QgOYnF4gLEfluB_PIzONzqG1rJT5628J-MW9mVqbMtogpNCDuQELDNdrsLF2xqx3UY2KILSsMkcRSeCgWaFbqKWAPb9FVyy-JcFU88C0vIZ8ttvZhK8n8HyFxZlLLXSlll=s1360-w1360-h1020" alt="Carlos's Pizzeria" class="hero-image">
         
         <div class="store-description">
@@ -10,9 +17,5 @@
             <p>Welcome to the best pizzeria in town, serving up hot, fresh slices daily. We use only the finest ingredients to craft pizzas that keep you coming back for more.</p>
         </div>
     </div>
-
-    <h2>Hours of Operation</h2>
-    <table class="mc-table">
-        <!-- ... keep your existing table code ... -->
-    </table>
+    
 {% endblock %}

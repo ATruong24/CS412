@@ -1,11 +1,18 @@
+<!--
+Description: Confirmation receipt page displaying the ordered items, total calculated price, and pickup time.
+Author: Anthony Truong
+Date: Fall 2026
+-->
 {% extends 'restaurant/base.html' %}
 
 {% block content %}
     <h1>Order Confirmation</h1>
     
+    <!-- Displays customer information from context-->
     <p>Thank you for your order, <strong>{{ name }}</strong>!</p>
     <p>Your order has been confirmed.</p>
     
+    <!-- Lists items ordered-->>
     <h2>Items Ordered:</h2>
     <ul>
         {% for item in ordered_items %}
@@ -15,12 +22,15 @@
         {% endfor %}
     </ul>
     
+    <!-- Displays total price-->
     <h3>Total Price: ${{ total_price }}</h3>
     
+    <!-- Conditional statement if there were any instructions-->
     {% if instructions %}
         <p><strong>Special Instructions:</strong> {{ instructions }}</p>
     {% endif %}
     
+    <!-- Display exact pickup time-->>
     <div>
         <h2>Pick-Up Time</h2>
         <p>Your order will be ready at: <br><strong>{{ ready_time }}</strong></p>
