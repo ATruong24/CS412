@@ -22,11 +22,54 @@ a:hover {
     /* font-weight: bold; */
 }
 
-body {
-    max-width: 960px;
+
+
+.page-layout {
+    display: flex;
+    max-width: 1200px;
     margin: 20px auto;
-    padding: 20px auto;
+    align-items: flex-start;
 }
+
+.wrapper {
+    flex: 1; 
+    padding: 0;
+    border: none;
+    top: 0;
+}
+
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero-image {
+    max-width: 600px; 
+    width: 100%;
+    margin-bottom: 20px; 
+    border: 2px solid darkblue;
+}
+
+.sidebar a {
+    display: block;  
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.store-description {
+    font-size: 1.2em;
+    max-width: 800px;
+}
+
+.sidebar {
+    width: 200px;
+    padding: 20px 30px 20px 0;
+    border-right: 1px solid slategray;
+    margin-right: 30px; 
 
 header {
     width: 100%;
@@ -46,19 +89,6 @@ footer {
     bottom: 0px;
 }
 
-
-.wrapper {              /* centering and margin around whole wrapper element */
-    border: 2px solid;
-    max-width: 100%;
-    position: relative;
-    top: 50px;
-    scroll-padding-top: 100px;
-    /* scroll-padding-bottom: 100px; */
-    padding-bottom: 50px;
-    
-    /* top:100px; */
-    /* bottom: 100px; */
-}
 
 
 div.wrapper h1 {
@@ -200,10 +230,9 @@ nav button {
 }
 
 img {
-    max-width: 400px;
+    max-width: 100%;
     height: auto;
     border-radius: 8px;
-    margin: 20px;
 }
 
 /* responsive styles when width is less than 1400px */

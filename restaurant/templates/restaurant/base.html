@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carlos' Pizzaria</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}?v=2">
+</head>
+<body>
+    <div class="page-layout">
+        
+        <nav class="sidebar">
+            <a href="{% url 'main' %}">Restaurant Info</a>
+            <a href="{% url 'order' %}">Place an Order</a>
+        </nav>
+        
+        <main class="wrapper">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+    </div>
+</body>
+</html>
