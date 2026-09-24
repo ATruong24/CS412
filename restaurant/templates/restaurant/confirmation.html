@@ -12,7 +12,7 @@ Date: Fall 2026
     <p>Thank you for your order, <strong>{{ name }}</strong>!</p>
     <p>Your order has been confirmed.</p>
     
-    <!-- Lists items ordered-->>
+    <!-- Lists items ordered-->
     <h2>Items Ordered:</h2>
     <ul>
         {% for item in ordered_items %}
@@ -23,14 +23,14 @@ Date: Fall 2026
     </ul>
     
     <!-- Displays total price-->
-    <h3>Total Price: ${{ total_price }}</h3>
+    <h3>Total Price: ${{ total_price|floatformat:2 }}</h3>
     
     <!-- Conditional statement if there were any instructions-->
     {% if instructions %}
         <p><strong>Special Instructions:</strong> {{ instructions }}</p>
     {% endif %}
     
-    <!-- Display exact pickup time-->>
+    <!-- Display exact pickup time-->
     <div>
         <h2>Pick-Up Time</h2>
         <p>Your order will be ready at: <br><strong>{{ ready_time }}</strong></p>

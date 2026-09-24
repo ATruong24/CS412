@@ -13,7 +13,7 @@ Date: Fall 2026
     <form action="{% url 'confirmation' %}" method="POST" class="site-form">
         {% csrf_token %}
         
-        <!-- Menu items with checkbox-->>
+        <!-- Menu items with checkbox-->
         <h2>Select your Items:</h2>
         <label><input type="checkbox" name="items" value="Cheese Pizza"> Cheese Pizza ($18.00)</label><br>
         <label><input type="checkbox" name="items" value="Pepporoni Pizza"> Pepporoni Pizza ($22.00)</label><br>
@@ -22,11 +22,11 @@ Date: Fall 2026
         <label><input type="checkbox" name="items" value="Cheesecake"> Cheesecake ($4.50)</label><br>
 
 
-        <!-- Daily Special Item-->>
+        <!-- Daily Special Item-->
         <h2>Today's Special:</h2>
         <label><input type="checkbox" name="daily_special" value="{{ daily_special }}"> {{ daily_special }} ($20.00)</label><br>
 
-        <!-- Optional extra for extra meat-->>
+        <!-- Optional extra for extra meat-->
         <h2>Extras (Optional):</h2>
         <label for="extra_meat">Add Extra Meat ($3.00):</label>
         <select name="extra_meat" id="extra_meat">
@@ -36,12 +36,12 @@ Date: Fall 2026
         </select>
 
 
-        <!-- Text area for special instructions or needs-->>
+        <!-- Text area for special instructions or needs-->
         <h2>Special Instructions</h2>
         <p>Please share any special instructions:</p>
         <textarea name="instructions" rows="4" style="width: 100%;"></textarea>
 
-        <!-- Customer contact information inputs-->>
+        <!-- Customer contact information inputs-->
         <h2>Customer Information</h2>
         <label>Name: <input type="text" name="name" required></label><br>
         <label>Phone: <input type="text" name="phone" required></label><br>
