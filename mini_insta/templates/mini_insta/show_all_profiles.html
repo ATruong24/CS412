@@ -1,0 +1,22 @@
+<!--
+Description: Main information page showing all profiles
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<h2>All Profiles</h2>
+<div class="profile-grid">
+    {% for profile in profiles %}
+    <div class="profile-card">
+        <img src="{{ profile.profile_image_url }}" alt="{{ profile.username }}">
+        <h3>{{ profile.display_name }}</h3>
+        <p>@{{ profile.username }}</p>
+    </div>
+    {% empty %}
+    <p>No profiles yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

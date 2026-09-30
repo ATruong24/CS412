@@ -12,6 +12,6 @@ class Profile(models.Model):
     bio_text = models.TextField(blank=True)
     join_date = models.DateTimeField(auto_now=True)
 
-def __str__(self):
-    '''Returns User's Username'''
-    return f"{self.username} ({self.display_name})"
+    def __str__(self):
+        '''Returns User's Username'''
+        return f"{self.username} ({self.display_name})"
