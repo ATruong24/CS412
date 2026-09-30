@@ -24,7 +24,9 @@ urlpatterns = [
     # Added path to quotes application
     path('cs412/quotes/', include("quotes.urls")),
     # Added path to restaurant application
-    path('cs412/restaurant/', include("restaurant.urls"))
+    path('cs412/restaurant/', include("restaurant.urls")),
+    # Added path to mini_instagram application
+    path('cs412/mini_insta/', include("mini_insta.urls"))
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
