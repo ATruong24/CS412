@@ -11,8 +11,12 @@ Date: Fall 2026
 <div class="profile-grid">
     {% for profile in profiles %}
     <div class="profile-card">
-        <img src="{{ profile.profile_image_url }}" alt="{{ profile.username }}">
-        <h3>{{ profile.display_name }}</h3>
+        <a href="{% url 'show_profile' profile.pk %}">
+            <img src="{{ profile.profile_image_url }}" alt="{{ profile.username }}">
+        </a>
+        <h3>
+            <a href="{% url 'show_profile' profile.pk %}">{{ profile.display_name }}</a>
+        </h3>
         <p>@{{ profile.username }}</p>
     </div>
     {% empty %}
