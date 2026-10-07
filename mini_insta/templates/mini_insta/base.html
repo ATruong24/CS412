@@ -30,6 +30,9 @@ Date: Fall 2026
     <footer>
         <!-- Shows all profiles in footer-->
         <a href="{% url 'show_all_profiles' %}">All Profiles</a>
+        {% if profile %}
+            <a href="{% url 'create_post' profile.pk %}">Create Post</a>
+        {% endif %}
         <p>Mini Insta; CS412</p>
    </footer>
 </body>

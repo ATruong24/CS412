@@ -1,0 +1,37 @@
+<!--
+Description: Displays a form template
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Create a post for {{ profile.display_name }}</h2>
+
+<form method="POST" action="{% url 'create_post' profile.pk %}">
+    {% csrf_token %}
+
+    <table>
+    {% for field in form %}
+    <tr>
+        <th>{{ field.label }}</th>
+        <td>{{ field }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <th>Image URL</th>
+        <td><input type="url" name="image_url"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input type="submit" value="Create Post">
+            <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
+        </td>
+    </tr>
+    </table>
+</form>
+
+{% endblock %}
