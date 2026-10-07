@@ -40,5 +40,19 @@ Date: Fall 2026
 </div>
 
 <h3>Posts</h3>
-<p>No posts yet.</p>
+<div class="post-grid">
+    {% for post in profile.get_all_posts %}
+        <a class="post-thumb" href="{% url 'show_post' post.pk %}">
+            {% with photo=post.get_all_photos.first %}
+                {% if photo %}
+                    <img src="{{ photo.image_url }}" alt="{{ post.caption }}">
+                {% else %}
+                    <img src="https://placehold.co/300x300?text=No+Image" alt="No image">
+                {% endif %}
+            {% endwith %}
+        </a>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</div>
 {% endblock %}

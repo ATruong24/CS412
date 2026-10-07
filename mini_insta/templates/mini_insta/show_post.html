@@ -1,0 +1,28 @@
+<!--
+Description: Displays a user post
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+<div class="post-page">
+    <p>
+        <a href="{% url 'show_profile' post.profile.pk %}">
+            @{{ post.profile.username }}
+        </a>
+        &middot; {{ post.timestamp|date:"F j, Y, g:i a" }}
+    </p>
+
+    <div class="post-photos">
+        {% for photo in post.get_all_photos %}
+            <img src="{{ photo.image_url }}" alt="Photo {{ forloop.counter }}">
+        {% empty %}
+            <img src="https://placehold.co/300x300?text=No+Image" alt="No image">
+        {% endfor %}
+    </div>
+
+    <p class="post-caption">{{ post.caption }}</p>
+</div>
+{% endblock %}
