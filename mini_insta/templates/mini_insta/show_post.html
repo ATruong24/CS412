@@ -17,7 +17,7 @@ Date: Fall 2026
 
     <div class="post-photos">
         {% for photo in post.get_all_photos %}
-            <img src="{{ photo.image_url }}" alt="Photo {{ forloop.counter }}">
+            <img src="{{ photo.get_image_url }}" alt="Photo {{ forloop.counter }}">
         {% empty %}
             <img src="https://placehold.co/300x300?text=No+Image" alt="No image">
         {% endfor %}

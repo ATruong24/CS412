@@ -40,13 +40,29 @@ class Post(models.Model):
         '''Returns a set of all photos attached to the post'''
         return Photo.objects.filter(post=self).order_by('timestamp')
 
+
+
+
 class Photo(models.Model):
     '''Mdoels a single image attached to a post'''
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     image_url = models.URLField(blank=True)
+    image_file = models.ImageField(blank=True)
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         '''Returns a short desciption of the photo'''
-        return f"Photo for post {self.post.pk}: {self.image_url}"
+        if self.image_url:
+            return f"Photo for post {self.post.pk}: {self.image_url}"
+        else:
+            return f"Photo for post {self.post.pk}: {self.image_file.name}"
+
+    def get_image_url(self):
+        '''Returns the URL of this photo's image'''
+        if self.image_url:
+            return self.image_url
+        elif self.image_file:
+            return self.image_file.url
+        else:
+            return ''
     

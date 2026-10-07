@@ -10,7 +10,7 @@ Date: Fall 2026
 
 <h2>Create a post for {{ profile.display_name }}</h2>
 
-<form method="POST" action="{% url 'create_post' profile.pk %}">
+<form method="POST" action="{% url 'create_post' profile.pk %}" enctype="multipart/form-data">    
     {% csrf_token %}
 
     <table>
@@ -21,8 +21,8 @@ Date: Fall 2026
     </tr>
     {% endfor %}
     <tr>
-        <th>Image URL</th>
-        <td><input type="url" name="image_url"></td>
+        <th>Photos</th>
+        <td><input type="file" name="files" accept="image/*" multiple></td>
     </tr>
     <tr>
         <td></td>
