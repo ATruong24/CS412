@@ -48,6 +48,11 @@ class Profile(models.Model):
         '''Return the number of profiles this profile follows'''
         return len(self.get_following())
 
+    def get_post_feed(self):
+        '''return a set of posts from the profiles this profile follows'''
+        following = self.get_following()
+        return Post.objects.filter(profile__in=following).order_by('-timestamp')
+
 class Post(models.Model):
     '''Models a single post made by a user profile'''
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)

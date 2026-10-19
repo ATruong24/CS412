@@ -28,12 +28,17 @@ Date: Fall 2026
     </main>
 
     <footer>
-        <!-- Shows all profiles in footer-->
+    <nav class="footer-nav">
+        {% if profile %}
+            <a href="{% url 'show_feed' profile.pk %}">Home</a>
+        {% endif %}
         <a href="{% url 'show_all_profiles' %}">All Profiles</a>
         {% if profile %}
             <a href="{% url 'create_post' profile.pk %}">Create Post</a>
+            <a href="{% url 'show_profile' profile.pk %}">Profile</a>
         {% endif %}
-        <p>Mini Insta; CS412</p>
-   </footer>
+    </nav>
+    <p>Mini Insta &middot; CS412</p>
+</footer>
 </body>
 </html>

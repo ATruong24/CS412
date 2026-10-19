@@ -1,0 +1,65 @@
+<!--
+Description: Post feed showing posts from the profiles the user follows
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>
+    Feed for
+    <a href="{% url 'show_profile' profile.pk %}">@{{ profile.username }}</a>
+</h2>
+
+<div class="feed">
+    {% for post in profile.get_post_feed %}
+    <div class="feed-post">
+
+        <!-- author name and image -->
+        <div class="feed-author">
+            <a href="{% url 'show_profile' post.profile.pk %}">
+                <img src="{{ post.profile.profile_image_url }}" alt="{{ post.profile.username }}">
+            </a>
+            <a href="{% url 'show_profile' post.profile.pk %}">
+                {{ post.profile.display_name }}
+            </a>
+            <span class="comment-time">{{ post.timestamp|date:"M j, Y" }}</span>
+        </div>
+
+        <!-- first photo -->
+        <a href="{% url 'show_post' post.pk %}">
+            {% with photo=post.get_all_photos.first %}
+                {% if photo %}
+                    <img class="feed-photo" src="{{ photo.get_image_url }}" alt="{{ post.caption }}">
+                {% else %}
+                    <img class="feed-photo" src="https://placehold.co/600x600?text=No+Image" alt="No image">
+                {% endif %}
+            {% endwith %}
+        </a>
+
+        <!-- likes, caption, comments -->
+        <p class="post-likes">
+            {{ post.get_likes.count }} like{{ post.get_likes.count|pluralize }}
+        </p>
+        <p class="post-caption">{{ post.caption }}</p>
+
+        <div class="post-comments">
+            {% for comment in post.get_all_comments %}
+                <p>
+                    <a href="{% url 'show_profile' comment.profile.pk %}">@{{ comment.profile.username }}</a>
+                    {{ comment.text }}
+                </p>
+            {% empty %}
+                <p class="comment-time">No comments yet.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% empty %}
+    <p>No posts yet. Follow some profiles to fill your feed.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

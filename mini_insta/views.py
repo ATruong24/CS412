@@ -127,3 +127,10 @@ class ShowFollowingDetailView(DetailView):
     model = Profile
     template_name = "mini_insta/show_following.html"
     context_object_name = 'profile'
+
+class ShowFeedView(DetailView):
+    '''Display the post feed for a single profile'''
+
+    model = Profile
+    template_name = "mini_insta/show_feed.html"
+    context_object_name = 'profile'
