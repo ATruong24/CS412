@@ -5,8 +5,8 @@ Date: Fall 2026
 '''
 from django.urls import reverse
 from django.shortcuts import render
-from .forms import CreatePostForm
-from django.views.generic import ListView, DetailView, CreateView
+from .forms import CreatePostForm, UpdateProfileForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Profile, Post, Photo
 # Create your views here.
 from django.http import HttpRequest, HttpResponse
@@ -67,3 +67,10 @@ class CreatePostView(CreateView):
         '''Provide a URL to redirect to after making a new post'''
 
         return reverse('show_post', kwargs={'pk': self.object.pk})
+
+class UpdateProfileView(UpdateView):
+    '''A view to update an existing profile and save it to the database'''
+
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = "mini_insta/update_profile_form.html"

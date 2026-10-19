@@ -6,7 +6,7 @@ Date: Fall 2026
 
 from django.db import models
 from django.utils import timezone
-
+from django.urls import reverse
 # Create your models here.
 
 
@@ -25,6 +25,10 @@ class Profile(models.Model):
     def get_all_posts(self):
         '''Returns a Set of all posts of this profile'''
         return Post.objects.filter(profile=self).order_by('-timestamp')
+
+    def get_absolute_url(self):
+        '''Return the URL to display the profile'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
 
 class Post(models.Model):
     '''Models a single post made by a user profile'''
