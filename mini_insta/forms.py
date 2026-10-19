@@ -26,3 +26,11 @@ class UpdateProfileForm(forms.ModelForm):
             'profile_image_url',
             'bio_text'
         ]
+
+class UpdatePostForm(forms.ModelForm):
+    '''A form to update the caption of an existing post'''
+
+    class Meta:
+        '''Associate the form with Post model'''
+        model = Post
+        fields = ['caption']

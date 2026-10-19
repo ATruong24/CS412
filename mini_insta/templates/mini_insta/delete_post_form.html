@@ -1,0 +1,34 @@
+<!--
+Description: Confirmation page to delete a post
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Delete this post?</h2>
+
+<div class="post-page">
+    {% with photo=post.get_all_photos.first %}
+        {% if photo %}
+            <img src="{{ photo.get_image_url }}" alt="{{ post.caption }}" class="delete-preview">
+        {% endif %}
+    {% endwith %}
+    <p>{{ post.caption }}</p>
+    <p>Posted by @{{ profile.username }} on {{ post.timestamp|date:"F j, Y" }}</p>
+
+    <!-- form 1: confirm the delete (POST back to this same URL) -->
+    <form method="POST" action="{% url 'delete_post' post.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+
+    <!-- form 2: cancel the delete (GET the profile page) -->
+    <form method="GET" action="{% url 'show_profile' profile.pk %}">
+        <input type="submit" value="Cancel">
+    </form>
+</div>
+
+{% endblock %}

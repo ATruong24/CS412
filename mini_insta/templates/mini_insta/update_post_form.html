@@ -1,0 +1,41 @@
+<!--
+Description: Form to update the caption of a post
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Update post</h2>
+
+<div class="post-page">
+    {% with photo=post.get_all_photos.first %}
+        {% if photo %}
+            <img src="{{ photo.get_image_url }}" alt="{{ post.caption }}" class="delete-preview">
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{% url 'update_post' post.pk %}">
+        {% csrf_token %}
+
+        <table>
+        {% for field in form %}
+        <tr>
+            <th>{{ field.label }}</th>
+            <td>{{ field }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="Update Post">
+                <a href="{% url 'show_post' post.pk %}">Cancel</a>
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+
+{% endblock %}

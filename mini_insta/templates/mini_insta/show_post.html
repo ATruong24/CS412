@@ -15,6 +15,11 @@ Date: Fall 2026
         &middot; {{ post.timestamp|date:"F j, Y, g:i a" }}
     </p>
 
+    <p class="post-actions">
+         <a href="{% url 'update_post' post.pk %}">Update</a>
+         <a href="{% url 'delete_post' post.pk %}">Delete</a>
+    </p>
+
     <div class="post-photos">
         {% for photo in post.get_all_photos %}
             <img src="{{ photo.get_image_url }}" alt="Photo {{ forloop.counter }}">

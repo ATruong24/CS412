@@ -5,8 +5,8 @@ Date: Fall 2026
 '''
 from django.urls import reverse
 from django.shortcuts import render
-from .forms import CreatePostForm, UpdateProfileForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from .forms import CreatePostForm, UpdateProfileForm, UpdatePostForm
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Profile, Post, Photo
 # Create your views here.
 from django.http import HttpRequest, HttpResponse
@@ -74,3 +74,44 @@ class UpdateProfileView(UpdateView):
     model = Profile
     form_class = UpdateProfileForm
     template_name = "mini_insta/update_profile_form.html"
+
+class DeletePostView(DeleteView):
+    '''A view to delete a post and remove it from the DB'''
+
+    model = Post
+    template_name = "mini_insta/delete_post_form.html"
+
+    def get_context_data(self, **kwargs):
+        '''Return dictionary of context variables for usin template'''
+
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs['pk']
+        post = Post.objects.get(pk=pk)
+
+        # Add the post and its profile to dict
+        context['post'] = post
+        context['profile'] = post.profile
+        return context
+
+    def get_success_url(self):
+        '''Return th eURL to redirect after successful delete'''
+
+        pk = self.kwargs['pk']
+        post = Post.objects.get(pk=pk)
+        profile = post.profile
+
+        return reverse('show_profile', kwargs={'pk': profile.pk})
+
+class UpdatePostView(UpdateView):
+    '''A view to update the caption of an existing post'''
+
+    model = Post
+    form_class = UpdatePostForm
+    template_name = "mini_insta/update_post_form.html"
+
+    def get_success_url(self):
+        '''Return the URL to redirect after a successful update'''
+
+        return reverse('show_post', kwargs={'pk': self.object.pk})
+
+
