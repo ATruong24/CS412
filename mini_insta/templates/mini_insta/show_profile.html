@@ -30,11 +30,15 @@ Date: Fall 2026
         </tr>
         <tr>
             <th>Followers</th>
-            <td>Coming soon</td>
+            <td>
+                <a href="{% url 'show_followers' profile.pk %}">{{ profile.get_num_followers }}</a>
+            </td>
         </tr>
         <tr>
             <th>Following</th>
-            <td>Coming soon</td>
+            <td>
+                <a href="{% url 'show_following' profile.pk %}">{{ profile.get_num_following }}</a>
+            </td>
         </tr>
     </table>
     <p>

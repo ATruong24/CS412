@@ -1,0 +1,30 @@
+<!--
+Description: Displays all profiles who follow a specific profile
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>
+    <a href="{% url 'show_profile' profile.pk %}">@{{ profile.username }}</a>
+    &middot; Followers ({{ profile.get_num_followers }})
+</h2>
+
+<div class="profile-grid">
+    {% for follower in profile.get_followers %}
+    <div class="profile-card">
+        <a href="{% url 'show_profile' follower.pk %}">
+            <img src="{{ follower.profile_image_url }}" alt="{{ follower.username }}">
+        </a>
+        <h3><a href="{% url 'show_profile' follower.pk %}">{{ follower.display_name }}</a></h3>
+        <p>@{{ follower.username }}</p>
+    </div>
+    {% empty %}
+    <p>No followers yet.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

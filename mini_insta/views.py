@@ -114,4 +114,16 @@ class UpdatePostView(UpdateView):
 
         return reverse('show_post', kwargs={'pk': self.object.pk})
 
+class ShowFollowersDetailView(DetailView):
+    '''Display the profiles who follow a profile'''
 
+    model = Profile
+    template_name = "mini_insta/show_followers.html"
+    context_object_name = 'profile'
+
+class ShowFollowingDetailView(DetailView):
+    '''Display the profiles that a given profile follows'''
+
+    model = Profile
+    template_name = "mini_insta/show_following.html"
+    context_object_name = 'profile'
