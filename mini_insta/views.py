@@ -5,6 +5,7 @@ Date: Fall 2026
 '''
 from django.urls import reverse
 from django.shortcuts import render
+from django.db.models import Q
 from .forms import CreatePostForm, UpdateProfileForm, UpdatePostForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Profile, Post, Photo
@@ -134,3 +135,46 @@ class ShowFeedView(DetailView):
     model = Profile
     template_name = "mini_insta/show_feed.html"
     context_object_name = 'profile'
+
+class SearchView(ListView):
+    '''Search profiles and post on the given profile. show the search form if no query was given'''
+
+    template_name = "mini_insta/search_results.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        '''Handle request, if there is no query, show search form otherwise continue with ListView processsing'''
+
+        query = self.request.GET.get('query')
+        if not query:
+            # no query yet, show search form
+            profile = Profile.objects.get(pk=kwargs['pk'])
+            return render(request, "mini_insta/search.html", {'profile': profile})
+        
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        ''' Returns queryset of posts whose caption contains the query'''
+
+        query = self.request.GET.get('query')
+        return Post.objects.filter(caption__icontains=query).order_by('-timestamp')
+
+    def get_context_data(self, **kwargs):
+        '''Return a dict of context variables for use in template'''
+
+        context = super().get_context_data(**kwargs)
+
+        # the profile on whose behalf we are searching
+        pk = self.kwargs['pk']
+        context['profile'] = Profile.objects.get(pk=pk)
+        query = self.request.GET.get('query')
+        context['query'] = query
+
+        # the posts that match 
+        context['posts'] = self.get_queryset()
+        context['profiles'] = Profile.objects.filter(
+            Q(username__icontains=query) |
+            Q(display_name__icontains=query) |
+            Q(bio_text__icontains=query)
+        )
+
+        return context

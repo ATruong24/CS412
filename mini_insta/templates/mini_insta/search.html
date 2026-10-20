@@ -1,0 +1,19 @@
+<!--
+Description: Search form to search profiles and posts
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Search</h2>
+
+<form method="GET" action="{% url 'search' profile.pk %}" class="site-form">
+    <label for="query">Search profiles and posts</label>
+    <input type="text" name="query" id="query" placeholder="Enter a name, word, or phrase">
+    <input type="submit" value="Search">
+</form>
+
+{% endblock %}

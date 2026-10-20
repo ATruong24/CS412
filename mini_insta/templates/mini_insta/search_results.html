@@ -1,0 +1,48 @@
+<!--
+Description: Dispalys profiles and posts that match a search query
+Name: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h2>Results for "{{ query }}"</h2>
+<p><a href="{% url 'search' profile.pk %}">New search</a></p>
+
+<!-- Matching profiles in loop -->
+<h3>Profiles ({{ profiles.count }})</h3>
+<div class="profile-grid">
+    {% for p in profiles %}
+    <div class="profile-card">
+        <a href="{% url 'show_profile' p.pk %}">
+            <img src="{{ p.profile_image_url }}" alt="{{ p.username }}">
+        </a>
+        <h3><a href="{% url 'show_profile' p.pk %}">{{ p.display_name }}</a></h3>
+        <p>@{{ p.username }}</p>
+    </div>
+    {% empty %}
+    <p>No matching profiles.</p>
+    {% endfor %}
+</div>
+
+<!-- Mathcing posts in loop-->
+<h3>Posts ({{ posts.count }})</h3>
+<div class="post-grid">
+    {% for post in posts %}
+        <a class="post-thumb" href="{% url 'show_post' post.pk %}">
+            {% with photo=post.get_all_photos.first %}
+                {% if photo %}
+                    <img src="{{ photo.get_image_url }}" alt="{{ post.caption }}">
+                {% else %}
+                    <img src="https://placehold.co/300x300?text=No+Image" alt="No image">
+                {% endif %}
+            {% endwith %}
+        </a>
+    {% empty %}
+        <p>No matching posts.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
