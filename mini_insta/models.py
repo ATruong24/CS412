@@ -7,11 +7,13 @@ Date: Fall 2026
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your models here.
 
 
 class Profile(models.Model):
     '''Models a single Instagram-like user profile.'''
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     username = models.TextField(blank=True)
     display_name = models.TextField(blank=True)
     profile_image_url = models.URLField(blank=True)
