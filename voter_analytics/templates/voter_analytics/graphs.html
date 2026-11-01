@@ -1,0 +1,28 @@
+<!--
+Description: Plotly graph of voter data
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% include "voter_analytics/search_form.html" with action_url="graphs" %}
+    </div>
+
+    <div class="row">
+        {{graph_div_birth_year|safe}}
+    </div>
+
+    <div class="row">
+        {{graph_div_party|safe}}
+    </div>
+
+    <div class="row">
+        {{graph_div_elections|safe}}
+    </div>
+
+</div>
+{% endblock %}
