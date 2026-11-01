@@ -37,6 +37,18 @@ class Voter(models.Model):
         '''Return a string representation of the voter'''
         return (f'{self.first_name} {self.last_name}, 'f'{self.street_number} {self.street_name} ' f'({self.party_affiliation}, score {self.voter_score})')
 
+    def get_street_address(self):
+        '''Return the street address if available'''
+        address = f'{self.street_number} {self.street_name}'
+        if self.apartment_number:
+            address += f', Apt {self.apartment_number}'
+        return address
+
+    def get_google_maps_url(self):
+        '''Return a Google Maps search URL for voter address'''
+        query = f'{self.street_number} {self.street_name}, Newton, MA'
+        return 'https://www.google.com/maps/search/?api=1&query=' + query.replace(' ', '+')
+
 def load_data():
     '''Load Voter data from CSV File into DjangoDB'''
 

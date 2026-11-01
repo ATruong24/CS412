@@ -1,0 +1,35 @@
+<!--
+Description: Shows all field of one voter with Google Maps link
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>{{v.first_name}} {{v.last_name}}</h2>
+
+    <table>
+        <tr>
+            <th>Address</th>
+            <td>
+                {{v.get_street_address}}, Newton, MA {{v.zip_code}}
+                (<a href="{{v.get_google_maps_url}}" target="_blank">View on Google Maps</a>)
+            </td>
+        </tr>
+        <tr><th>Date of Birth</th><td>{{v.date_of_birth}}</td></tr>
+        <tr><th>Date of Registration</th><td>{{v.date_of_registration}}</td></tr>
+        <tr><th>Party Affiliation</th><td>{{v.party_affiliation}}</td></tr>
+        <tr><th>Precinct</th><td>{{v.precinct_number}}</td></tr>
+        <tr><th>Voted in 2020 State</th><td>{{v.v20state}}</td></tr>
+        <tr><th>Voted in 2021 Town</th><td>{{v.v21town}}</td></tr>
+        <tr><th>Voted in 2021 Primary</th><td>{{v.v21primary}}</td></tr>
+        <tr><th>Voted in 2022 General</th><td>{{v.v22general}}</td></tr>
+        <tr><th>Voted in 2023 Town</th><td>{{v.v23town}}</td></tr>
+        <tr><th>Voter Score</th><td>{{v.voter_score}}</td></tr>
+    </table>
+
+    <p><a href="{% url 'voters' %}">Back to all voters</a></p>
+</div>
+{% endblock %}

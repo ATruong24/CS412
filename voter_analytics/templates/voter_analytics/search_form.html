@@ -1,0 +1,69 @@
+<!--
+Description: Voter filter form
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
+<form method="GET" action="{% url action_url %}">
+    <table>
+        <tr>
+            <th>Party Affiliation:</th>
+            <td>
+                <select name="party">
+                    <option value="">Any</option>
+                    {% for p in parties %}
+                    <option value="{{p}}" {% if p == selected.party %}selected{% endif %}>{{p}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Born in or after:</th>
+            <td>
+                <select name="min_dob">
+                    <option value="">Any</option>
+                    {% for y in years %}
+                    <option value="{{y}}" {% if y == selected.min_dob %}selected{% endif %}>{{y}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Born in or before:</th>
+            <td>
+                <select name="max_dob">
+                    <option value="">Any</option>
+                    {% for y in years %}
+                    <option value="{{y}}" {% if y == selected.max_dob %}selected{% endif %}>{{y}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Voter Score:</th>
+            <td>
+                <select name="voter_score">
+                    <option value="">Any</option>
+                    {% for s in scores %}
+                    <option value="{{s}}" {% if s == selected.voter_score %}selected{% endif %}>{{s}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Voted in:</th>
+            <td>
+                {% for e in elections %}
+                <label>
+                    <input type="checkbox" name="{{e}}" {% if e in selected %}checked{% endif %}>
+                    {{e}}
+                </label>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Filter"></td>
+            <td><a href="{% url action_url %}">Clear filters</a></td>
+        </tr>
+    </table>
+</form>

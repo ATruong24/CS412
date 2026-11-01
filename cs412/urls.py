@@ -26,7 +26,9 @@ urlpatterns = [
     # Added path to restaurant application
     path('cs412/restaurant/', include("restaurant.urls")),
     # Added path to mini_instagram application
-    path('cs412/mini_insta/', include("mini_insta.urls"))
+    path('cs412/mini_insta/', include("mini_insta.urls")),
+    # Added path to voter_analytics
+    path('cs412/voter_analytics/', include("voter_analytics.urls")),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
