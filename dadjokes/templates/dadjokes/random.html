@@ -1,0 +1,13 @@
+<!--
+Description: Displays random joke abd random picture
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<h2>{{ joke.text }}</h2>
+<p>Contributed by {{ joke.added_by }}</p>
+<img src="{{ picture.image_url }}" alt="Silly picture" style="max-width: 400px;">
+{% endblock %}

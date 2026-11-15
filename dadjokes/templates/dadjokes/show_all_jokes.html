@@ -1,0 +1,16 @@
+<!--
+Description: Displays all jokes
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<h2>All Jokes</h2>
+{% for joke in jokes %}
+    <p><a href="{% url 'show_joke' joke.pk %}">{{ joke.text }}</a> (by {{ joke.added_by }})</p>
+{% empty %}
+    <p>No jokes yet</p>
+{% endfor %}
+{% endblock %}

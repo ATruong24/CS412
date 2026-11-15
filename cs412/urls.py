@@ -29,6 +29,8 @@ urlpatterns = [
     path('cs412/mini_insta/', include("mini_insta.urls")),
     # Added path to voter_analytics
     path('cs412/voter_analytics/', include("voter_analytics.urls")),
+    # Added path to dadjokes
+    path('cs412/dadjokes/', include("dadjokes.urls")),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

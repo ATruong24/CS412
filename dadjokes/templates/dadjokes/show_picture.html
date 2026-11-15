@@ -1,0 +1,12 @@
+<!--
+Description: Displays random picture
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<img src="{{ picture.image_url }}" alt="Picture by {{ picture.added_by }}" style="max-width: 500px;">
+<p>Contributed by {{ picture.added_by }} on {{ picture.timestamp|date:"F j, Y" }}</p>
+{% endblock %}

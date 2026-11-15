@@ -1,0 +1,18 @@
+<!--
+Description: Displays all pictures
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<h2>All Pictures</h2>
+{% for picture in pictures %}
+    <a href="{% url 'show_picture' picture.pk %}">
+        <img src="{{ picture.image_url }}" alt="Picture by {{ picture.added_by }}" style="width: 200px;">
+    </a>
+{% empty %}
+    <p>No pictures yet.</p>
+{% endfor %}
+{% endblock %}

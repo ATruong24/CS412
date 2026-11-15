@@ -1,0 +1,12 @@
+<!--
+Description: Displays random joke
+Author: Anthony Truong
+Date: Fall 2026
+-->
+
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+<h2>{{ joke.text }}</h2>
+<p>Contributed by {{ joke.added_by }} on {{ joke.timestamp|date:"F j, Y" }}</p>
+{% endblock %}
