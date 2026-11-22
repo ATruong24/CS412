@@ -13,6 +13,8 @@ from .models import Profile, Post, Photo
 from django.http import HttpRequest, HttpResponse
 import time
 import random
+from rest_framework import generics
+from .serializers import ProfileSerializer, PostSerializer
 
 class ProfileListView(ListView):
     """Displays all Profiles"""
@@ -178,3 +180,38 @@ class SearchView(ListView):
         )
 
         return context
+
+class ProfileListAPIView(generics.ListAPIView):
+    '''API: return a list of all profiles into JSON'''
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+
+class ProfileDetailAPIView(generics.RetrieveAPIView):
+    '''API: return one profile into JSON'''
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+
+class ProfilePostsAPIView(generics.ListAPIView):
+    '''API: return the posts of a profile into JSON'''
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        '''Return this profile post'''
+        return Post.objects.filter(profile__pk=self.kwargs['pk']).order_by('-timestamp')
+
+
+class ProfileFeedAPIView(generics.ListAPIView):
+    '''API: return the post feed for a profile into JSON'''
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        '''Return the posts of the profiles this profile follows'''
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        return profile.get_post_feed()   # use YOUR model's feed method name
+
+
+class CreatePostAPIView(generics.CreateAPIView):
+    '''API: create a new post from JSON data'''
+    serializer_class = PostSerializer
