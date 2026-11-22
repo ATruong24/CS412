@@ -11,6 +11,14 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Profile, Post, Photo
 # Create your views here.
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth import authenticate
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.exceptions import PermissionDenied
 import time
 import random
 from rest_framework import generics
@@ -181,37 +189,80 @@ class SearchView(ListView):
 
         return context
 
-class ProfileListAPIView(generics.ListAPIView):
-    '''API: return a list of all profiles into JSON'''
+# ---------------- REST API views ----------------
+
+class APIAuthMixin:
+    '''Require a valid token for an API view'''
+
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_user_profile(self):
+        return Profile.objects.filter(user=self.request.user).first()
+
+
+class LoginAPIView(APIView):
+    '''API: check a username and password'''
+
+    authentication_classes = []      
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        user = authenticate(username=username, password=password)
+        if user is None:
+            return Response({'error': 'Invalid username or password.'},
+                            status=status.HTTP_401_UNAUTHORIZED)
+
+        profile = Profile.objects.filter(user=user).first()
+        if profile is None:
+            return Response({'error': 'This user has no profile.'},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        token, created = Token.objects.get_or_create(user=user)
+
+        return Response({'token': token.key,
+                         'user_id': user.id,
+                         'profile_id': profile.id})
+
+
+class ProfileListAPIView(APIAuthMixin, generics.ListAPIView):
+    '''API: return a list of all profiles as JSON'''
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
 
-class ProfileDetailAPIView(generics.RetrieveAPIView):
-    '''API: return one profile into JSON'''
+class ProfileDetailAPIView(APIAuthMixin, generics.RetrieveAPIView):
+    '''API: return one profile as JSON.'''
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
 
-class ProfilePostsAPIView(generics.ListAPIView):
-    '''API: return the posts of a profile into JSON'''
+class ProfilePostsAPIView(APIAuthMixin, generics.ListAPIView):
+    '''API: return the posts of a profile'''
     serializer_class = PostSerializer
 
     def get_queryset(self):
-        '''Return this profile post'''
+        '''Return this profile's post'''
         return Post.objects.filter(profile__pk=self.kwargs['pk']).order_by('-timestamp')
 
 
-class ProfileFeedAPIView(generics.ListAPIView):
-    '''API: return the post feed for a profile into JSON'''
+class ProfileFeedAPIView(APIAuthMixin, generics.ListAPIView):
+    '''API: return the feed for the logged in user profile'''
     serializer_class = PostSerializer
 
     def get_queryset(self):
-        '''Return the posts of the profiles this profile follows'''
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
-        return profile.get_post_feed()   # use YOUR model's feed method name
+        profile = self.get_user_profile()
+        if profile is None or profile.pk != self.kwargs['pk']:
+            raise PermissionDenied('You can only view your own feed.')
+        return profile.get_post_feed()   # keep YOUR feed method name
 
 
-class CreatePostAPIView(generics.CreateAPIView):
-    '''API: create a new post from JSON data'''
+class CreatePostAPIView(APIAuthMixin, generics.CreateAPIView):
+    '''API: create a new Post'''
     serializer_class = PostSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(profile=self.get_user_profile())

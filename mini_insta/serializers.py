@@ -16,16 +16,15 @@ class PhotoSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    '''Convert a Post to JSON'''
+    '''Convert a post to JSON'''
 
-    # include each post's photos inside the post's JSON
     photos = PhotoSerializer(source='photo_set', many=True, read_only=True)
     username = serializers.CharField(source='profile.username', read_only=True)
-
 
     class Meta:
         model = Post
         fields = '__all__'
+        read_only_fields = ['profile']  
 
 
 class ProfileSerializer(serializers.ModelSerializer):

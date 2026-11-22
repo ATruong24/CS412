@@ -9,7 +9,7 @@ from .views import (ProfileListView, ProfileDetailView, PostDetailView, CreatePo
                     UpdateProfileView, DeletePostView, UpdatePostView,
                     ShowFollowersDetailView, ShowFollowingDetailView, ShowFeedView, SearchView,
                     ProfileListAPIView, ProfileDetailAPIView, ProfilePostsAPIView,
-                    ProfileFeedAPIView, CreatePostAPIView)
+                    ProfileFeedAPIView, CreatePostAPIView, LoginAPIView)
 
 urlpatterns = [
     path('', ProfileListView.as_view(), name='show_all_profiles'),
@@ -28,4 +28,5 @@ urlpatterns = [
     path('api/profile/<int:pk>/posts/', ProfilePostsAPIView.as_view(), name='api_profile_posts'),
     path('api/profile/<int:pk>/feed/', ProfileFeedAPIView.as_view(), name='api_feed'),
     path('api/posts/', CreatePostAPIView.as_view(), name='api_create_post'),
+    path('api/login/', LoginAPIView.as_view(), name='api_login'),
 ]
