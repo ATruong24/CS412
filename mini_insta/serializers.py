@@ -20,6 +20,8 @@ class PostSerializer(serializers.ModelSerializer):
 
     # include each post's photos inside the post's JSON
     photos = PhotoSerializer(source='photo_set', many=True, read_only=True)
+    username = serializers.CharField(source='profile.username', read_only=True)
+
 
     class Meta:
         model = Post
