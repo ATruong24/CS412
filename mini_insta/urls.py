@@ -30,3 +30,4 @@ urlpatterns = [
     path('api/posts/', CreatePostAPIView.as_view(), name='api_create_post'),
     path('api/login/', LoginAPIView.as_view(), name='api_login'),
 ]
+
